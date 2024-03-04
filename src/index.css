@@ -1,5 +1,5 @@
 @import-normalize;
-/* try the code from https://create-react-app.dev/docs/adding-css-reset */
+/* try the code from https://create-react-app.dev/docs/adding-css-reset but it does not seem to work? */
 
 @import url(reset.css); /*remove default*/
 

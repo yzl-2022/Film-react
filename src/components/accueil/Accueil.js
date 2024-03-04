@@ -1,11 +1,17 @@
 import './Accueil.css';
-import Header from '../header/Header';
+import Nav from '../nav/Nav'
+import Header from '../header/Header'
+import List from '../list-film/List-film'
+import Footer from '../footer/Footer'
 
 function Accueil() {
   return (
     <div className="Accueil">
-      <header>Accueil</header>
-      <Header/>
+      <Nav />
+      <Header />
+      <h2>Bonjour utilisateur</h2>
+      <List />
+      <Footer />
     </div>
   );
 }

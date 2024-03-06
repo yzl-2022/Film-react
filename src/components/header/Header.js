@@ -2,23 +2,23 @@ import './Header.css';
 
 function Header() {
   return (
-    <header class="wrapper">
-        <div class="logo">
+    <header className="wrapper">
+        <div className="logo">
             <h1><a href="/">Accueil</a></h1>
         </div>
-        <div class="headerNav">
+        <div className="headerNav">
             <ul>
                 <li><a href="#">Films</a></li>
                 <li><a href="#">Admin</a></li>
             </ul>
         </div>
-        <div class="headerSearch">
+        <div className="headerSearch">
             <input type="text" placeholder="search"/>
             <a href="#"></a>
         </div>
-        <div class="notification">
+        <div className="notification">
             <a href="#"></a>
-            <div class="number">5</div>
+            <div className="number">5</div>
         </div>
     </header>
   );

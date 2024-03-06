@@ -1,4 +1,4 @@
-import './Accueil.css';
+import './Accueil.css'
 import Nav from '../nav/Nav'
 import Header from '../header/Header'
 import List from '../list-film/List-film'

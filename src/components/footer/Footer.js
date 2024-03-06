@@ -2,7 +2,7 @@ import './Footer.css';
 
 function Footer() {
   return (
-    <footer class="wrapper">
+    <footer className="wrapper">
         <div>
             <dl>
                 <dt>À PROPOS DE NOUS</dt>

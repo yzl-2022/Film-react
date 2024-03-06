@@ -1,14 +1,17 @@
-/*content*/
+/*filter at the top*/
+
+
+/*list of films*/
 .content ul {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
     margin: 1rem 0;
 }
 
 .content li {
     width: 290px;
-    height: 620px;
+    height: 646px;
     background-color: #2e8b57; /* this color seems ok */
     /*transition*/
     transition: all 0.9s;

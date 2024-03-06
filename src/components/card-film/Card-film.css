@@ -1,7 +1,7 @@
 /*pic*/
 .pic {
     width: 290px;
-    height: 370px;
+    height: 400px;
     background-color: black;
     /*push <img> to center*/
     display: flex;
@@ -10,7 +10,7 @@
 
 .pic > img {
     max-width: 290px;
-    max-height: 370px;
+    max-height: 400px;
     width: auto;  /*why the inverse (width: 100%; height: auto) does not work?*/
     height: 100%;
     vertical-align: middle;  /*It seems not to work, why?  --> flex parent box*/
@@ -20,7 +20,7 @@
 .txt {
     text-align: left;
     padding: 0 2rem;
-    height: 146px; /*I have no idea where this height comes from, just measured it from the browser*/
+    height: 246px; /*I have no idea where this height comes from, just measured it from the browser*/
 }
 
 .txt h3 {

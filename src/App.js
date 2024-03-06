@@ -1,8 +1,7 @@
-import './App.css'
-import Accueil from '../accueil/Accueil'
+import Accueil from './components/accueil/Accueil'
 
-//$npm i -D react-router-dom
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import router from './router/Router'
 
 function App() {
   return (

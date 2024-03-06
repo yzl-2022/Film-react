@@ -12,7 +12,7 @@
 .content li {
     width: 290px;
     height: 646px;
-    background-color: #2e8b57; /* this color seems ok */
+    background-color: var(--green);
     /*transition*/
     transition: all 0.9s;
     /*promo-tag*/

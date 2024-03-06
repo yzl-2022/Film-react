@@ -1,4 +1,4 @@
-import Accueil from './components/accueil/Accueil'
+import Page from './components/page/Page'
 
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import router from './router/Router'
@@ -7,7 +7,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Accueil />}></Route>
+        <Route path="/" element={<Page />}></Route>
       </Routes>
     </BrowserRouter>
   );

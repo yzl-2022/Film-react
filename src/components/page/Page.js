@@ -8,7 +8,7 @@ import Accueil from '../accueil/Accueil'
 
 function Page() {
   return (
-    <div className="Page">
+    <div className="wrapper">
       <Nav />
       <Header />
       <Accueil />

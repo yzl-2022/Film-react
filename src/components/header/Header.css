@@ -18,6 +18,8 @@ header {
 .logo {
     width: 205px; /* the logo is 199px in width, but still need extra pixels, why?*/
     height: 55px; /* the logo is 45px, but why it needs extra 10px to display in full? */
+    line-height: 55px;
+    font-weight: 900;
 }
 
 /*header: nav*/

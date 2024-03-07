@@ -1,4 +1,5 @@
 import './Accueil.css';
+import message from './Accueil.json'
 
 function Accueil() {
   return (
@@ -13,8 +14,8 @@ function Accueil() {
             <a href="#">EN SAVOIR PLUS</a>
         </div>
       </section>
-      <section>
-        <p>trois phrase</p>
+      <section className='msg'>
+        {message.map( (p, index)=> <p key={index}>{p}</p>)}
       </section>
     </div>
   );

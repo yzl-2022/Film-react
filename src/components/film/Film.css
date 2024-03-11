@@ -1,0 +1,30 @@
+/*one film*/
+.film {
+    display: flex;
+    margin: 1rem auto;
+}
+
+/*overwrite from Card-film.css*/
+.pic {
+    flex: 30%;
+}
+
+.txt {
+    flex: 70%;
+    height: 100%;
+}
+
+/*responsive*/
+@media screen and (max-width: 808px) {
+    .film {
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+/*list of comments*/
+.comment {
+    display: flex;
+    justify-content: center;
+    margin: 1rem auto;
+}

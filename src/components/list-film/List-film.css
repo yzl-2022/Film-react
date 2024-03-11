@@ -2,6 +2,10 @@
 
 
 /*list of films*/
+.content {
+    margin: 1rem auto;
+}
+
 .content ul {
     display: flex;
     flex-flow: row wrap;

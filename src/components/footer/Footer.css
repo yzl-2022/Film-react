@@ -31,3 +31,11 @@ footer div:last-child li a {
     height: 24px;
     width: 24px;
 }
+
+/*responsive*/
+@media screen and (max-width: 733px) {
+    footer {
+        flex-direction: column;
+        justify-content: center;
+    }
+}

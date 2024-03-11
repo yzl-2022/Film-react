@@ -2,8 +2,8 @@ import './Admin.css';
 
 function Admin() {
   return (
-    <div className="Admin">
-      <header>Bonjour dans Admin</header>
+    <div className="wrapper">
+      <h1>Bonjour dans Admin</h1>
     </div>
   );
 }

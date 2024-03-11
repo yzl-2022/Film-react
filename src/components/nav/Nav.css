@@ -30,3 +30,10 @@ nav li:last-child img {
     vertical-align: top;  /*why 'middle' does not aligne in the center?*/
     margin-right: 4px;
 }
+
+/*responsive*/
+@media screen and (max-width: 360px) {
+    nav li:nth-last-child(2) {
+        display: none;
+    }
+}

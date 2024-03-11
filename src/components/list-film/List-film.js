@@ -2,22 +2,16 @@ import './List-film.css'
 import Card from '../card-film/Card-film'
 
 import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 function List() {
     const urlFilms = 'https://film-j3by.onrender.com/api/films'
 
-    /******************************
-     * useState
-     ******************************/
-
     //update the list of films
     const [ listFilm, setListFilm] = useState([])
     //update filters
-    //const [paramFilter, setParamFilter] = useState(urlFilms)
+    const [paramFilter, setParamFilter] = useState(urlFilms)
 
-    /******************************
-     * useEffect
-     ******************************/
     useEffect(()=>{
         async function getListFilm(){
             const res = await fetch(urlFilms)
@@ -25,15 +19,8 @@ function List() {
             setListFilm(jsonRes)
         }
         getListFilm()
-    },[])
+    },[paramFilter])
 
-    /******************************
-     * eventListener
-     ******************************/
-
-    /******************************
-     * JSX
-     ******************************/
     return (
         <div className="content wrapper">
         <h2>Liste des films</h2>

@@ -2,9 +2,9 @@ import './Admin.css';
 
 function Admin() {
   return (
-    <div className="wrapper">
+    <main className="wrapper">
       <h1>Bonjour dans Admin</h1>
-    </div>
+    </main>
   );
 }
 

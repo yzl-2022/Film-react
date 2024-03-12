@@ -36,7 +36,7 @@ function List() {
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault();       //not necessarily needed; the form will send a GET request which still works
     }
 
     //update the list of films
@@ -53,20 +53,20 @@ function List() {
     },[urlTri, urlOrdre, urlLimit])
 
     return (
-        <div className="wrapper">
-        <form className='filter' onChange={(e)=>handleFilter(e)} onSubmit={(e)=>handleSubmit(e)}>
-            <label htmlFor="titre"><input type="radio" id="titre" name="tri" value="titre"/>par titre</label>
-            <label htmlFor="realisation"><input type="radio" id="realisation" name="tri" value="realisation"/>par réalisateur </label>
-            <label htmlFor="annee"><input type="radio" id="annee" name="tri" value="annee"/>par année</label>
-            <label htmlFor="asc"><input type="radio" id="asc" name="ordre" value="asc"/>ordre croissant</label>
-            <label htmlFor="desc"><input type="radio" id="desc" name="ordre" value="desc"/>Ordre décroissant</label>
-            <label htmlFor="limit"><input type="number" id="limit" name="limit" min="1" defaultValue="19"/>nombre de films</label>
-        </form>
-        <h2>Liste des films</h2>
-        <ul className="content">
-            {listFilm.map( film => <li key={film.id}><Card film={film}/></li> )}           
-        </ul>
-        </div>
+        <main className="wrapper">
+            <form className='filter' onChange={(e)=>handleFilter(e)} onSubmit={(e)=>handleSubmit(e)}>
+                <label htmlFor="titre"><input type="radio" id="titre" name="tri" value="titre"/>par titre</label>
+                <label htmlFor="realisation"><input type="radio" id="realisation" name="tri" value="realisation"/>par réalisateur </label>
+                <label htmlFor="annee"><input type="radio" id="annee" name="tri" value="annee"/>par année</label>
+                <label htmlFor="asc"><input type="radio" id="asc" name="ordre" value="asc"/>ordre croissant</label>
+                <label htmlFor="desc"><input type="radio" id="desc" name="ordre" value="desc"/>Ordre décroissant</label>
+                <label htmlFor="limit"><input type="number" id="limit" name="limit" min="1" defaultValue="19"/>nombre de films</label>
+            </form>
+            <h2>Liste des films</h2>
+            <ul className="content">
+                {listFilm.map( film => <li key={film.id}><Card film={film}/></li> )}           
+            </ul>
+        </main>
     );
 }
 

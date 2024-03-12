@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 function Accueil() {
   return (
-    <div className='wrapper'>
+    <main className='wrapper'>
       <section className="banner">
         <div className="picture">
             <a href="#"><img src="accueil/accueil.jpg" alt="banner"/></a>
@@ -18,7 +18,7 @@ function Accueil() {
       <section className='msg'>
         {message.map( (p, index)=> <p key={index}>{p}</p>)}
       </section>
-    </div>
+    </main>
   );
 }
 

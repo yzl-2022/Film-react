@@ -33,6 +33,22 @@
     color: var(--brown);
 }
 
+.btn {
+    display: inline-block;
+    padding: 0.5rem;
+    margin: 1rem auto;
+    background-color: var(--green);
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    border: none;
+    appearance: none;
+}
+
+.btn:hover {
+    color: var(--gold);
+}
+
 /****public****/
 
 a {

@@ -1,13 +1,13 @@
 import './Film.css'
 
 import {useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 
 function Film() {
   const urlFilms = 'https://film-j3by.onrender.com/api/films'
   const params = useParams()
-  const id = params.id
-  
+  const id = params.id || '1'
+
   const [oneFilm, setOneFilm] = useState([])
 
   const navigate = useNavigate()
@@ -18,14 +18,14 @@ function Film() {
         const jsonRes = await res.json()
         
         if (jsonRes.message){  // if error message exists
-          navigate('/404') // there is a delay and it shows the a break page when passing a non-exist ID
-          return null
+          navigate('/404')     // the route '/404' is not defined, but it will work in this way
+          return null          // Note: there is a delay and it shows the a broken page when passing a non-existing ID
         }else{
           setOneFilm(jsonRes)
         }
     }
     getOneFilm()
-  },[]) // re-render when id or comments change, so passing nothing but []
+  },[]) // re-render when id or comments change
 
   return (
     <article className='wrapper'>

@@ -1,12 +1,30 @@
 /*filter at the top*/
+.filter {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    margin: 1rem 0;
+}
 
+.filter label {
+    padding: 0.5rem;
+    background-color: var(--gold);
+    font-size: var(--h6);
+    text-align: center;
+    border-radius: 10px;
+    margin: 0.5rem 3px;
+}
+
+.filter input {
+    margin-right: 5px;
+}
+
+.filter input[type=number] {
+    width: 40px;
+}
 
 /*list of films*/
 .content {
-    margin: 1rem auto;
-}
-
-.content ul {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;

@@ -1,7 +1,7 @@
 import './Film.css'
 
 import {useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, json } from 'react-router-dom'
 
 function Film() {
   const urlFilms = 'https://film-j3by.onrender.com/api/films'
@@ -15,6 +15,11 @@ function Film() {
 
   const navigate = useNavigate()
 
+  /**
+   * @function calculateMean
+   * @param {Array} arr
+   * @returns {number}
+   */
   function calculateMean(arr){
     if (arr.length < 1) return 0
     let sum = 0
@@ -41,6 +46,8 @@ function Film() {
     getOneFilm()
   },[]) //re-render when id or comments change? No, use setOneFilm() && another fetch.
 
+  const blocAjoutCommentaire = <form onSubmit={soumettreCommentaire}><textarea placeholder='Ajouter votre commentaires'></textarea><input type='submit' className='btn' value="Soumettre"/></form>
+
   //==========================
   // eventListeners
   //==========================
@@ -49,13 +56,13 @@ function Film() {
     let aNotes
 
     if(oneFilm.notes){
-      aNotes = oneFilm.notes; //{notes:[1,1,1...]}
+      aNotes = oneFilm.notes //{notes:[1,1,1...]}
       aNotes.push(1)
     }else{
       aNotes = [1]
     }
 
-    //prepare request.body to bypass validation in API-Film
+    //prepare request.body to bypass validation in API-Film (only verify the first 6 elements)
     const updateFilm = {
       titre: oneFilm.titre,
       genres: oneFilm.genres,
@@ -65,6 +72,7 @@ function Film() {
       titreVignette: oneFilm.titreVignette,
       notes: aNotes //why creating a new copy and insert it every modification? Because non-relational database?
     }
+    if (oneFilm.commentaires) updateFilm.commentaires = oneFilm.commentaires
     
     //update database via PUT request
     const oOptions = {
@@ -85,6 +93,48 @@ function Film() {
           })
   }
 
+  async function soumettreCommentaire(e){
+    e.preventDefault()
+
+    let aCommentaires
+
+    if (oneFilm.commentaires){
+      aCommentaires = oneFilm.commentaires
+      aCommentaires.push({ commentaire: "J'aime bien ce film", user: 'user1'})
+    }else{
+      aCommentaires = [{ commentaire: "J'aime bien ce film", user: 'user1'}]
+    }
+
+    //prepare request.body to bypass validation in API-Film
+    const updateFilm = {
+      titre: oneFilm.titre,
+      genres: oneFilm.genres,
+      description: oneFilm.description,
+      annee: oneFilm.annee,
+      realisation: oneFilm.realisation,
+      titreVignette: oneFilm.titreVignette,
+      commentaires: aCommentaires
+    }
+    if (oneFilm.notes) updateFilm.notes = oneFilm.notes
+
+    //update database via PUT request
+    const oOptions = {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(updateFilm)
+    }
+
+    let putCommentaire = await fetch(urlOneFilm, oOptions) //send the PUT request
+    let getOneFilm = await fetch(urlOneFilm) //obtain the updated Film with GET request
+
+    Promise.all([putCommentaire, getOneFilm])
+           .then( response => response[1].json() ) //response[0] from PUT; response[1] from GET
+           .then( (data) => {
+              setOneFilm(data)
+              if (data.notes) setNbVote(data.notes.length)
+              if (data.notes) setMeanVote(calculateMean(data.notes))
+          })
+  }
 
   return (
     <main className='wrapper'>
@@ -97,12 +147,15 @@ function Film() {
             <p><span>Réalisation </span> {oneFilm.realisation}</p>
             <p><span>Genres </span> {oneFilm.genres && oneFilm.genres.length > 0 && oneFilm.genres.join(', ')}</p>
             <button className='btn' onClick={soumettreNote}>Vote</button>
-            <p>nombre de votes: <span> {nbVote} </span></p>
+            <p>nombre de votes: <span> {nbVote ? nbVote : 'Aucun vote enregistré'} </span></p>
             <p>moyenne de votes: <span> {meanVote} </span></p>
         </div>
       </section>
       <section className='comment'>
-        <p>comment 1</p>
+        {blocAjoutCommentaire}
+        <ul>
+        {oneFilm.commentaires && oneFilm.commentaires.map( (item,index) => <li key={index}><img src='/icons/account.svg'/><span>{item.user}</span>{item.commentaire}</li>)}
+        </ul>
       </section>
     </main>
   );

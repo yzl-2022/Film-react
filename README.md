@@ -1,6 +1,6 @@
-lien ver Render.com: <https://film-j3by.onrender.com/api/films>
+lien vers Render.com: <https://film-j3by.onrender.com/api/films>
 
-documentation pour API-Film: <https://github.com/yzl-2022/API-Films>
+documentation pour API-Films: <https://github.com/yzl-2022/API-Films>
 
 sources de css et html: <https://github.com/yzl-2022/zele.github.io>
 

@@ -15,7 +15,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 //useContext to control login
 import { createContext, useState } from 'react'
-const LoginContext = createContext()
+export const LoginContext = createContext() //why export here but not at the end with export.default?
 
 function App() {
 
@@ -23,7 +23,7 @@ function App() {
 
   const urlLogin = 'https://film-j3by.onrender.com/api/utilisateurs/connexion'
 
-  //eventListener to be used in header>form
+  //eventListeners to be used in nav>form
   async function handleLogin(e){
     e.preventDefault() //e.preventDefault() for onSubmit
 
@@ -35,8 +35,6 @@ function App() {
       loginForm[key] = value
     }
 
-    console.log(loginForm)
-
     //2-verify user in API-Film
     const oOptions = {
       method: 'POST',
@@ -46,7 +44,6 @@ function App() {
 
     const res = await fetch(urlLogin, oOptions)
     const jsonRes = await res.json()
-    console.log(jsonRes)
 
     if (jsonRes.message){ //if error message exists
       setLogin({isLogin: false, user: ''})
@@ -56,12 +53,16 @@ function App() {
     }
   }
 
+  function handleLogout(){
+    if (login.isLogin) setLogin({isLogin: false, user: ''})
+  }
+
   return (
 
     <LoginContext.Provider value={login}>
 
       <BrowserRouter>
-        <Nav handleLogin={handleLogin} />
+        <Nav handleLogin={handleLogin} handleLogout={handleLogout} />
         <Header />
         <Routes>
             <Route path="/" >

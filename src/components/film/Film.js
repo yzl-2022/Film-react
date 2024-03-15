@@ -1,6 +1,7 @@
 import './Film.css'
 
-import {useEffect, useState } from 'react'
+import {useEffect, useState, useContext } from 'react'
+import { LoginContext } from '../App/App'
 import { useParams, useNavigate } from 'react-router-dom'
 
 function Film() {
@@ -14,6 +15,8 @@ function Film() {
   const [nbVote, setNbVote] = useState(0)
 
   const navigate = useNavigate()
+
+  const login = useContext(LoginContext)
 
   /**
    * @function calculateMean -- otherwise use Array.map/reduce
@@ -46,7 +49,7 @@ function Film() {
     getOneFilm()
   },[]) //re-render when id or comments change? No, use setOneFilm() && another fetch.
 
-  const blocAjoutCommentaire = <form onSubmit={soumettreCommentaire}><textarea placeholder='Ajouter votre commentaires'></textarea><input type='submit' className='btn' value="Soumettre"/></form>
+  const blocAjoutCommentaire = <form onSubmit={soumettreCommentaire}><textarea name="comment" placeholder='Ajouter votre commentaires'></textarea><input type='submit' className='btn' value="Soumettre"/></form>
 
   //==========================
   // eventListeners
@@ -56,13 +59,7 @@ function Film() {
     e.preventDefault() //e.preventDefault() for onSubmit
 
     //1-get vote from the form
-    let inputNote = 1 //since the range is [1,5], let's give a default value 1
-
-    const formElements = e.currentTarget.elements
-
-    for (const element of formElements) {
-      if(element.type === 'radio' && element.checked) inputNote = element.value
-    }
+    const inputNote = e.currentTarget.elements.note.value //only accept one vote at a time
 
     //2-submit vote to database
     let aNotes
@@ -110,13 +107,18 @@ function Film() {
   async function soumettreCommentaire(e){
     e.preventDefault() //e.preventDefault() for onSubmit
 
+    //1-get comment from the form
+    const inputComment = e.currentTarget.elements.comment.value //only accept one comment at a time
+    console.log(inputComment)
+
+    //2-submit vote to database
     let aCommentaires
 
     if (oneFilm.commentaires){
       aCommentaires = oneFilm.commentaires
-      aCommentaires.push({ commentaire: "J'aime bien ce film", user: 'user1'})
+      aCommentaires.push({ commentaire: inputComment, user: login.user})
     }else{
-      aCommentaires = [{ commentaire: "J'aime bien ce film", user: 'user1'}]
+      aCommentaires = [{ commentaire: inputComment, user: login.user}]
     }
 
     //prepare request.body to bypass validation in API-Film
@@ -163,7 +165,7 @@ function Film() {
             <p><span>Réalisation </span> {oneFilm.realisation}</p>
             <p><span>Genres </span> {oneFilm.genres && oneFilm.genres.length > 0 && oneFilm.genres.join(', ')}</p>
             <form onSubmit={soumettreNote}>
-              <label htmlFor="note1"><input type="radio" id="note1" name="note" value="1" checked/> 1 <img src='/icons/star.svg'/></label>
+              <label htmlFor="note1"><input type="radio" id="note1" name="note" value="1" defaultChecked/> 1 <img src='/icons/star.svg'/></label>
               <label htmlFor="note2"><input type="radio" id="note2" name="note" value="2"/> 2 <img src='/icons/star.svg'/></label>
               <label htmlFor="note3"><input type="radio" id="note3" name="note" value="3"/> 3 <img src='/icons/star.svg'/></label>
               <label htmlFor="note4"><input type="radio" id="note4" name="note" value="4"/> 4 <img src='/icons/star.svg'/></label>
@@ -176,7 +178,7 @@ function Film() {
       </section>
       <section className='comment'>
         <ul>
-          <li><img src='/icons/account.svg'/><span>username</span>{blocAjoutCommentaire}</li>
+          {login.isLogin &&<li><img src='/icons/account.svg'/><span>{login.user}</span>{blocAjoutCommentaire}</li>}
           {oneFilm.commentaires && oneFilm.commentaires.map( (item,index) => <li key={index}><img src='/icons/account.svg'/><span>{item.user}</span><p>{item.commentaire}</p></li>)}
         </ul>
       </section>

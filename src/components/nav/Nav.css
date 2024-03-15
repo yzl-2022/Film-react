@@ -13,15 +13,12 @@ nav ul {
 }
 
 nav li a {
-    padding-left: 1rem;
+    margin-left: 1rem;
     font-size: 14px;
     color: black;
 }
 nav li:last-child {
     margin-left: 1rem;
-}
-
-nav li:last-child a {
     border-left: 1px solid #999;
 }
 
@@ -39,13 +36,18 @@ nav ul li form input {
     margin-left: 1rem;
 }
 
-nav ul li form input[type="submit"]{
+.nav-btn{
     background-color: var(--green);
     color: white;
     text-align: center;
     border-radius: 4px;
+    padding: 4px;
     border: none;
     appearance: none;
+}
+
+button.nav-btn {
+    margin-left: .5rem;
 }
 
 /*responsive*/

@@ -18,7 +18,7 @@ function List() {
     const [urlOrdre, setUrlOrdre] = useState(ordre)
     const [urlLimit, setUrlLimit] = useState(limit)
 
-    const handleFilter = (e) => {
+    const handleFilter = (e) => {  // this is a onChange listener, so do not need e.preventDefault()
         const filterData ={}
         const formElements = e.currentTarget.elements
 
@@ -35,8 +35,8 @@ function List() {
         if (filterData.limit) setUrlLimit(filterData.limit)
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();       //not necessarily needed; the form will send a GET request which still works
+    const handleSubmit = (e) => { //e.preventDefault() for onSubmit
+        e.preventDefault()   //not necessarily needed? the form will send a GET request which still works
     }
 
     //update the list of films

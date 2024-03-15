@@ -1,7 +1,7 @@
 import './Film.css'
 
 import {useEffect, useState } from 'react'
-import { useParams, useNavigate, json } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 function Film() {
   const urlFilms = 'https://film-j3by.onrender.com/api/films'
@@ -16,7 +16,7 @@ function Film() {
   const navigate = useNavigate()
 
   /**
-   * @function calculateMean
+   * @function calculateMean -- otherwise use Array.map/reduce
    * @param {Array} arr
    * @returns {number}
    */
@@ -26,7 +26,7 @@ function Film() {
     for (let i=0 ; i<arr.length ; i++){
       sum += arr[i]
     }
-    return sum/arr.length
+    return Math.floor(sum/arr.length * 100)/100 //limitée à 2 chiffre suite au point
   }
 
   useEffect(()=>{
@@ -52,21 +52,33 @@ function Film() {
   // eventListeners
   //==========================
   
-  async function soumettreNote(){
+  async function soumettreNote(e){
+    e.preventDefault() //e.preventDefault() for onSubmit
+
+    //1-get vote from the form
+    let inputNote = 1 //since the range is [1,5], let's give a default value 1
+
+    const formElements = e.currentTarget.elements
+
+    for (const element of formElements) {
+      if(element.type === 'radio' && element.checked) inputNote = element.value
+    }
+
+    //2-submit vote to database
     let aNotes
 
     if(oneFilm.notes){
       aNotes = oneFilm.notes //{notes:[1,1,1...]}
-      aNotes.push(1)
+      aNotes.push(parseInt(inputNote))
     }else{
-      aNotes = [1]
+      aNotes = [parseInt(inputNote)]
     }
 
     //prepare request.body to bypass validation in API-Film (only verify the first 6 elements)
     const updateFilm = {
       titre: oneFilm.titre,
       genres: oneFilm.genres,
-      description: oneFilm.description,
+      description: oneFilm.description.replace(/&#x27;/g, "'"), //no idea why I got a problem with ' 
       annee: oneFilm.annee,
       realisation: oneFilm.realisation,
       titreVignette: oneFilm.titreVignette,
@@ -91,10 +103,12 @@ function Film() {
               if (data.notes) setNbVote(data.notes.length)
               if (data.notes) setMeanVote(calculateMean(data.notes))
           })
+          
+    e.target.reset() //clear value inside the form
   }
 
   async function soumettreCommentaire(e){
-    e.preventDefault()
+    e.preventDefault() //e.preventDefault() for onSubmit
 
     let aCommentaires
 
@@ -109,7 +123,7 @@ function Film() {
     const updateFilm = {
       titre: oneFilm.titre,
       genres: oneFilm.genres,
-      description: oneFilm.description,
+      description: oneFilm.description.replace(/&#x27;/g, "'"), 
       annee: oneFilm.annee,
       realisation: oneFilm.realisation,
       titreVignette: oneFilm.titreVignette,
@@ -134,6 +148,8 @@ function Film() {
               if (data.notes) setNbVote(data.notes.length)
               if (data.notes) setMeanVote(calculateMean(data.notes))
           })
+          
+    e.target.reset() //clear value inside the form
   }
 
   return (
@@ -142,19 +158,26 @@ function Film() {
         <div className="pic"><img src={`/img/${oneFilm.titreVignette}`} alt={`image pour ${oneFilm.titre}`}/></div>
         <div className="txt">
             <h3>{oneFilm.titre}</h3>
-            <p className="description">{oneFilm.description}</p>
+            <p className="description">{oneFilm.description && oneFilm.description.replace(/&#x27;/g, "'")}</p>
             <p><span>Année </span> {oneFilm.annee}</p>
             <p><span>Réalisation </span> {oneFilm.realisation}</p>
             <p><span>Genres </span> {oneFilm.genres && oneFilm.genres.length > 0 && oneFilm.genres.join(', ')}</p>
-            <button className='btn' onClick={soumettreNote}>Vote</button>
+            <form onSubmit={soumettreNote}>
+              <label htmlFor="note1"><input type="radio" id="note1" name="note" value="1" checked/> 1 <img src='/icons/star.svg'/></label>
+              <label htmlFor="note2"><input type="radio" id="note2" name="note" value="2"/> 2 <img src='/icons/star.svg'/></label>
+              <label htmlFor="note3"><input type="radio" id="note3" name="note" value="3"/> 3 <img src='/icons/star.svg'/></label>
+              <label htmlFor="note4"><input type="radio" id="note4" name="note" value="4"/> 4 <img src='/icons/star.svg'/></label>
+              <label htmlFor="note5"><input type="radio" id="note5" name="note" value="5"/> 5 <img src='/icons/star.svg'/></label>
+              <input className='btn' type="submit" value="Vote"/>
+            </form>
             <p>nombre de votes: <span> {nbVote ? nbVote : 'Aucun vote enregistré'} </span></p>
-            <p>moyenne de votes: <span> {meanVote} </span></p>
+            <p>moyenne de votes: <span> {meanVote} </span><img src='/icons/star.svg'/></p>
         </div>
       </section>
       <section className='comment'>
-        {blocAjoutCommentaire}
         <ul>
-        {oneFilm.commentaires && oneFilm.commentaires.map( (item,index) => <li key={index}><img src='/icons/account.svg'/><span>{item.user}</span>{item.commentaire}</li>)}
+          <li><img src='/icons/account.svg'/><span>username</span>{blocAjoutCommentaire}</li>
+          {oneFilm.commentaires && oneFilm.commentaires.map( (item,index) => <li key={index}><img src='/icons/account.svg'/><span>{item.user}</span><p>{item.commentaire}</p></li>)}
         </ul>
       </section>
     </main>

@@ -23,7 +23,10 @@ function App() {
 
   const urlLogin = 'https://film-j3by.onrender.com/api/utilisateurs/connexion'
 
-  //eventListeners to be used in nav>form
+  //==========================
+  // eventListeners to be used in nav>form
+  //==========================
+
   async function handleLogin(e){
     e.preventDefault() //e.preventDefault() for onSubmit
 
@@ -45,11 +48,11 @@ function App() {
     const res = await fetch(urlLogin, oOptions)
     const jsonRes = await res.json()
 
-    if (jsonRes.message){ //if error message exists
-      setLogin({isLogin: false, user: ''})
-    }else{
+    if (jsonRes.username){ //only if connected successfully
       setLogin({isLogin: true, user: jsonRes.username})
       e.target.reset()
+    }else{
+      setLogin({isLogin: false, user: ''})
     }
   }
 

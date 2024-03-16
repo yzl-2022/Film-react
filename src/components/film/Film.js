@@ -157,7 +157,7 @@ function Film() {
   return (
     <main className='wrapper'>
       <section className="film">
-        <div className="pic"><img src={`/img/${oneFilm.titreVignette}`} alt={`image pour ${oneFilm.titre}`}/></div>
+        <div className="pic"><img src={`../img/${oneFilm.titreVignette}`} alt={`image pour ${oneFilm.titre}`}/></div>
         <div className="txt">
             <h3>{oneFilm.titre}</h3>
             <p className="description">{oneFilm.description && oneFilm.description.replace(/&#x27;/g, "'")}</p>
@@ -165,21 +165,21 @@ function Film() {
             <p><span>Réalisation </span> {oneFilm.realisation}</p>
             <p><span>Genres </span> {oneFilm.genres && oneFilm.genres.length > 0 && oneFilm.genres.join(', ')}</p>
             <form onSubmit={soumettreNote}>
-              <label htmlFor="note1"><input type="radio" id="note1" name="note" value="1" defaultChecked/> 1 <img src='/icons/star.svg'/></label>
-              <label htmlFor="note2"><input type="radio" id="note2" name="note" value="2"/> 2 <img src='/icons/star.svg'/></label>
-              <label htmlFor="note3"><input type="radio" id="note3" name="note" value="3"/> 3 <img src='/icons/star.svg'/></label>
-              <label htmlFor="note4"><input type="radio" id="note4" name="note" value="4"/> 4 <img src='/icons/star.svg'/></label>
-              <label htmlFor="note5"><input type="radio" id="note5" name="note" value="5"/> 5 <img src='/icons/star.svg'/></label>
+              <label htmlFor="note1"><input type="radio" id="note1" name="note" value="1" defaultChecked/> 1 <img src='../icons/star.svg'/></label>
+              <label htmlFor="note2"><input type="radio" id="note2" name="note" value="2"/> 2 <img src='../icons/star.svg'/></label>
+              <label htmlFor="note3"><input type="radio" id="note3" name="note" value="3"/> 3 <img src='../icons/star.svg'/></label>
+              <label htmlFor="note4"><input type="radio" id="note4" name="note" value="4"/> 4 <img src='../icons/star.svg'/></label>
+              <label htmlFor="note5"><input type="radio" id="note5" name="note" value="5"/> 5 <img src='../icons/star.svg'/></label>
               <input className='btn' type="submit" value="Vote"/>
             </form>
             <p>nombre de votes: <span> {nbVote ? nbVote : 'Aucun vote enregistré'} </span></p>
-            <p>moyenne de votes: <span> {meanVote} </span><img src='/icons/star.svg'/></p>
+            <p>moyenne de votes: <span> {meanVote} </span><img src='../icons/star.svg'/></p>
         </div>
       </section>
       <section className='comment'>
         <ul>
-          {login.isLogin &&<li><img src='/icons/account.svg'/><span>{login.user}</span>{blocAjoutCommentaire}</li>}
-          {oneFilm.commentaires && oneFilm.commentaires.map( (item,index) => <li key={index}><img src='/icons/account.svg'/><span>{item.user}</span><p>{item.commentaire}</p></li>)}
+          {login.isLogin &&<li><img src='../icons/account.svg'/><span>{login.user}</span>{blocAjoutCommentaire}</li>}
+          {oneFilm.commentaires && oneFilm.commentaires.map( (item,index) => <li key={index}><img src='../icons/account.svg'/><span>{item.user}</span><p>{item.commentaire}</p></li>)}
         </ul>
       </section>
     </main>

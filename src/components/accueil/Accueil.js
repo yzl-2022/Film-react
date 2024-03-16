@@ -7,7 +7,7 @@ function Accueil() {
     <main className='wrapper'>
       <section className="banner">
         <div className="picture">
-            <a href="#"><img src="accueil/accueil.jpg" alt="banner"/></a>
+            <a href="#"><img src="../accueil/accueil.jpg" alt="banner"/></a>
         </div>
         <div className="bannertext">
             <h2>Partagez vos commentaires !</h2>

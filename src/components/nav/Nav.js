@@ -18,8 +18,8 @@ function Nav(props) {
                                   </form>
                                 </li>)
             }
-            {login.isLogin && <li><img src="/icons/account.svg"/> {login.user} <button className='nav-btn' onClick={props.handleLogout}>DÉCONNEXION</button></li>}
-            <li><a href="#"><img src="/icons/language.svg" alt="language"/><span className="active">FR</span></a></li>
+            {login.isLogin && <li><img src="../icons/account.svg"/> {login.user} <button className='nav-btn' onClick={props.handleLogout}>DÉCONNEXION</button></li>}
+            <li><a href="#"><img src="../icons/language.svg" alt="language"/><span className="active">FR</span></a></li>
         </ul>
     </nav>
   );
